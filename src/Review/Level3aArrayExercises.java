@@ -1,3 +1,5 @@
+package Review;
+
 import java.util.Scanner;
 
 public class Level3aArrayExercises {
@@ -38,7 +40,34 @@ public class Level3aArrayExercises {
      * which fall within a specified range.
      */
     public static void randomNoDuplicates(int min, int max) {
+        int[] numbers = new int[10];
+        int count = 0;
 
+        while (true) {
+            int num = (int) (Math.random() * ((max - min) + 1)) + min;
+
+            boolean duplicate = false;
+            for (int i = 0; i < numbers.length; i++) {
+                if (numbers[i] == num) {
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if (!duplicate) {
+                numbers[count] = num;
+                count++;
+                if (count == 10) {
+                    break;
+                }
+            } else {
+                continue;
+            }
+        }
+    }
+
+    public static void enterAndCount()
+    {
 
     }
 }

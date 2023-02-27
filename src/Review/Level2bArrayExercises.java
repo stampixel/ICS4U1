@@ -1,3 +1,5 @@
+package Review;
+
 import java.util.Scanner;
 
 public class Level2bArrayExercises {
