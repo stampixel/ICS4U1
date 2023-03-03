@@ -3,13 +3,13 @@ import java.util.Scanner;
 public class ClackerTwo {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        int rollSum = 0;
 
         System.out.print("Enter your name: ");
         String name = scan.next();
         int rollAmount = 0;
         int totalRollAmount = 0;
         int highScore = 100000;
+        boolean win = false;
 
         boolean one = false;
         boolean two = false;
@@ -25,45 +25,23 @@ public class ClackerTwo {
         boolean twelve = false;
 
 
-        // 0 means the specific number in the specific location is covered, 1 means its uncovered. or vice versa idk
-        String coveredNum = "000000000000";
-
         while (true) {
-
-            rollAmount = 0;
-            totalRollAmount = 0;
-            highScore = 100000;
-
-            one = false;
-            two = false;
-            three = false;
-            four = false;
-            five = false;
-            six = false;
-            seven = false;
-            eight = false;
-            nine = false;
-            ten = false;
-            eleven = false;
-            twelve = false;
-
             while (true) {
                 System.out.print("Enter amount of rolls (1-30): ");
                 rollAmount = scan.nextInt();
-                totalRollAmount += rollAmount;
-
                 if (rollAmount < 1) {
                     System.out.println("Number of rolls has to be higher than 1.");
                 } else if (rollAmount > 30) {
                     System.out.println("Number of rolls has to be 30 or under.");
                 } else {
+                    totalRollAmount += rollAmount;
                     break;
                 }
             }
 
             while (rollAmount > 0) {
-                int roll1 = (int) (Math.random() * (6) + 1);
-                int roll2 = (int) (Math.random() * (6) + 1);
+                int roll1 = (int) (Math.random() * 6 + 1);
+                int roll2 = (int) (Math.random() * 6 + 1);
 
                 System.out.println("You rolled the following numbers: " + roll1 + " and " + roll2);
 
@@ -205,10 +183,14 @@ public class ClackerTwo {
                 System.out.println();
                 rollAmount -= 1;
 
-                // ad a check win here so it stops rolling
+                win = one && two && three && four && five && six && seven && eight && nine && ten && eleven
+                        && twelve;
+
+                if (win) {
+                    break;
+                }
             }
 
-            boolean win = one && two && three && four && five && six && seven && eight && nine && ten && eleven && twelve;
 
             if (!win) {
                 System.out.println("You didnt finish the game in " + totalRollAmount + " yet");
@@ -221,11 +203,23 @@ public class ClackerTwo {
                 }
                 System.out.print("Wanna play again (0 for no, 1 for yes): ");
                 if (scan.nextInt() == 1) {
-                    continue;
+                    one = false;
+                    two = false;
+                    three = false;
+                    four = false;
+                    five = false;
+                    six = false;
+                    seven = false;
+                    eight = false;
+                    nine = false;
+                    ten = false;
+                    eleven = false;
+                    twelve = false;
                 } else {
                     break;
                 }
             }
         }
+        scan.close();
     }
 }
