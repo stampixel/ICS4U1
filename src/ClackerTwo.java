@@ -8,7 +8,7 @@ public class ClackerTwo {
         String name = scan.next();
         int rollAmount = 0;
         int totalRollAmount = 0;
-        int highScore = 100000;
+        int highScore = 10000000;
         boolean win = false;
 
         boolean one = false;
@@ -45,15 +45,24 @@ public class ClackerTwo {
 
                 System.out.println("You rolled the following numbers: " + roll1 + " and " + roll2);
 
-                if ((roll1 == 3 && roll2 == 4) || (roll1 == 4 && roll2 == 3) && three && four) {
+                if ((roll1 == 1 && roll2 == 6) || (roll1 == 6 && roll2 == 1) && one && six) {
+                    seven = true;
+                    System.out.println("It covers 7");
+                } else if ((roll1 == 2 && roll2 == 5) || (roll1 == 5 && roll2 == 2) && two && five) {
+                    seven = true;
+                    System.out.println("It covers 7");
+                } else if ((roll1 == 2 && roll2 == 6) || (roll1 == 6 && roll2 == 2) && two && six) {
+                    eight = true;
+                    System.out.println("It covers 8");
+                } else if ((roll1 == 3 && roll2 == 4) || (roll1 == 4 && roll2 == 3) && three && four) {
                     seven = true;
                     System.out.println("It covers 7");
                 } else if ((roll1 == 3 && roll2 == 5) || (roll1 == 5 && roll2 == 3) && three && five) {
                     eight = true;
-                    System.out.println("It covers 9");
+                    System.out.println("It covers 8");
                 } else if ((roll1 == 3 && roll2 == 6) || (roll1 == 6 && roll2 == 3) && three && six) {
                     nine = true;
-                    System.out.println("It covers 8");
+                    System.out.println("It covers 9");
                 } else if ((roll1 == 4 && roll2 == 4) && four) {
                     eight = true;
                     System.out.println("It covers 8");
@@ -180,7 +189,6 @@ public class ClackerTwo {
                     System.out.print("12 ");
                 }
                 System.out.println();
-                System.out.println();
                 rollAmount -= 1;
 
                 win = one && two && three && four && five && six && seven && eight && nine && ten && eleven
@@ -193,7 +201,7 @@ public class ClackerTwo {
 
 
             if (!win) {
-                System.out.println("You didnt finish the game in " + totalRollAmount + " yet");
+                System.out.println("You didn't finish the game in " + totalRollAmount + " yet");
                 System.out.println("Try rolling some more");
             } else {
                 System.out.println("you rolled all 12 numbers in " + totalRollAmount);
