@@ -1,5 +1,3 @@
-package clacker;
-
 import java.util.*;
 
 /*
