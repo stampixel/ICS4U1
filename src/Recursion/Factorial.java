@@ -14,8 +14,9 @@ public class Factorial {
      * f(5) --> 24 * 5 = 120
      * f(6) --> 120 * 6 = 720
      * returns the number to the original call
-     *
+     * <p>
      * Calling, built it up to 1, and then we figure out the math as the stack is being popped from top-down
+     *
      * @param num
      * @return
      */

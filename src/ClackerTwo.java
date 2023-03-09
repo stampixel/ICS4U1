@@ -6,9 +6,12 @@ public class ClackerTwo {
 
         System.out.print("Enter your name: ");
         String name = scan.next();
-        int rollAmount = 0;
+
+        System.out.println("Hello " + name + ", welcome to Clacker!");
+
+        int currentRollAmount;
         int totalRollAmount = 0;
-        int highScore = 10000000;
+        int highScore = Integer.MAX_VALUE;
         boolean win = false;
 
         boolean one = false;
@@ -24,22 +27,27 @@ public class ClackerTwo {
         boolean eleven = false;
         boolean twelve = false;
 
+        int counter = 0;
 
+        // Game
         while (true) {
             while (true) {
                 System.out.print("Enter amount of rolls (1-30): ");
-                rollAmount = scan.nextInt();
-                if (rollAmount < 1) {
+                currentRollAmount = scan.nextInt();
+                if (currentRollAmount < 1) {
                     System.out.println("Number of rolls has to be higher than 1.");
-                } else if (rollAmount > 30) {
+                } else if (currentRollAmount > 30) {
                     System.out.println("Number of rolls has to be 30 or under.");
                 } else {
-                    totalRollAmount += rollAmount;
+                    totalRollAmount += currentRollAmount;
                     break;
                 }
             }
 
-            while (rollAmount > 0) {
+            // Main game loop
+            while (currentRollAmount > 0) {
+                counter++;
+                System.out.println("<<Roll " + counter + ">>");
                 int roll1 = (int) (Math.random() * 6 + 1);
                 int roll2 = (int) (Math.random() * 6 + 1);
 
@@ -47,67 +55,93 @@ public class ClackerTwo {
 
                 if ((roll1 == 1 && roll2 == 6) || (roll1 == 6 && roll2 == 1) && one && six) {
                     seven = true;
-                    System.out.println("It covers 7");
+                    System.out.print("It covers 7");
                 } else if ((roll1 == 2 && roll2 == 5) || (roll1 == 5 && roll2 == 2) && two && five) {
                     seven = true;
-                    System.out.println("It covers 7");
+                    System.out.print("It covers 7");
                 } else if ((roll1 == 2 && roll2 == 6) || (roll1 == 6 && roll2 == 2) && two && six) {
                     eight = true;
-                    System.out.println("It covers 8");
+                    System.out.print("It covers 8");
                 } else if ((roll1 == 3 && roll2 == 4) || (roll1 == 4 && roll2 == 3) && three && four) {
                     seven = true;
-                    System.out.println("It covers 7");
+                    System.out.print("It covers 7");
                 } else if ((roll1 == 3 && roll2 == 5) || (roll1 == 5 && roll2 == 3) && three && five) {
                     eight = true;
-                    System.out.println("It covers 8");
+                    System.out.print("It covers 8");
                 } else if ((roll1 == 3 && roll2 == 6) || (roll1 == 6 && roll2 == 3) && three && six) {
                     nine = true;
-                    System.out.println("It covers 9");
+                    System.out.print("It covers 9");
                 } else if ((roll1 == 4 && roll2 == 4) && four) {
                     eight = true;
-                    System.out.println("It covers 8");
+                    System.out.print("It covers 8");
                 } else if ((roll1 == 4 && roll2 == 5) || (roll1 == 5 && roll2 == 4) && four && five) {
                     nine = true;
-                    System.out.println("It covers 9");
+                    System.out.print("It covers 9");
                 } else if ((roll1 == 4 && roll2 == 6) || (roll1 == 6 && roll2 == 4) && four && six) {
                     ten = true;
-                    System.out.println("It covers 10");
+                    System.out.print("It covers 10");
                 } else if ((roll1 == 5 && roll2 == 5) && five) {
                     ten = true;
-                    System.out.println("It covers 10");
+                    System.out.print("It covers 10");
                 } else if ((roll1 == 5 && roll2 == 6) || (roll1 == 6 && roll2 == 5) && six && five) {
                     eleven = true;
-                    System.out.println("It covers 11");
+                    System.out.print("It covers 11");
                 } else if ((roll1 == 6 && roll2 == 6) && six) {
                     twelve = true;
-                    System.out.println("It covers 12");
+                    System.out.print("It covers 12");
                 } else {
-                    System.out.print("It covers ");
 
+                    // Selection to check for covering of num 1-6
+                    System.out.print("It covers ");
                     // REDO ROLL1 AND ROLL2 SEPARATELY TO HAVE THE "AND" IN THE MIDDLE
-                    if (roll1 == 1 || roll2 == 1) {
+                    if (roll1 == 1) {
                         one = true;
                         System.out.print(" 1");
                     }
-                    if (roll1 == 2 || roll2 == 2) {
+                    if (roll1 == 2) {
                         two = true;
                         System.out.print(" 2");
                     }
-                    if (roll1 == 3 || roll2 == 3) {
+                    if (roll1 == 3) {
                         three = true;
                         System.out.print(" 3");
                     }
-                    if (roll1 == 4 || roll2 == 4) {
+                    if (roll1 == 4) {
                         four = true;
                         System.out.print(" 4");
                     }
-                    if (roll1 == 5 || roll2 == 5) {
+                    if (roll1 == 5) {
                         five = true;
                         System.out.print(" 5");
                     }
-                    if (roll1 == 6 || roll2 == 6) {
+                    if (roll1 == 6) {
                         six = true;
                         System.out.print(" 6");
+                    }
+
+                    if (roll1 != 1 || roll2 == 1) {
+                        one = true;
+                        System.out.print(" and 1");
+                    }
+                    if (roll1 != 2 || roll2 == 2) {
+                        two = true;
+                        System.out.print(" and 2");
+                    }
+                    if (roll1 != 3 || roll2 == 3) {
+                        three = true;
+                        System.out.print(" and 3");
+                    }
+                    if (roll1 != 4 || roll2 == 4) {
+                        four = true;
+                        System.out.print(" and 4");
+                    }
+                    if (roll1 != 5 || roll2 == 5) {
+                        five = true;
+                        System.out.print(" and 5");
+                    }
+                    if (roll1 != 6 || roll2 == 6) {
+                        six = true;
+                        System.out.print(" and 6");
                     }
                 }
                 System.out.println();
@@ -188,13 +222,15 @@ public class ClackerTwo {
                 if (!twelve) {
                     System.out.print("12 ");
                 }
-                System.out.println();
-                rollAmount -= 1;
 
-                win = one && two && three && four && five && six && seven && eight && nine && ten && eleven
-                        && twelve;
+                System.out.println("\n----------");
 
-                if (win) {
+                currentRollAmount -= 1; //
+
+
+                if (one && two && three && four && five && six && seven && eight && nine && ten && eleven
+                        && twelve) {
+                    win = true;
                     break;
                 }
             }
@@ -224,6 +260,7 @@ public class ClackerTwo {
                     eleven = false;
                     twelve = false;
                 } else {
+                    System.out.println("bye, See You Again.");
                     break;
                 }
             }
