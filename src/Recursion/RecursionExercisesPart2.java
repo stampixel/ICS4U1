@@ -5,7 +5,7 @@ public class RecursionExercisesPart2 {
         System.out.println(ha(0));
         int[] arr = new int[]{1, 2, 3, 4, 5};
         System.out.println(addUp(arr, arr.length - 1));
-
+        System.out.println(f(12));
     }
 
     public static int ha(int n) {
@@ -17,11 +17,11 @@ public class RecursionExercisesPart2 {
         }
     }
 
-    public static int addUp(int[] array, int len) {
-        if (len < 1) {
+    public static int addUp(int[] array, int index) {
+        if (index < 1) {
             return 1;
         } else {
-            return array[len] + addUp(array, len - 1);
+            return array[index] + addUp(array, index - 1);
         }
     }
 
