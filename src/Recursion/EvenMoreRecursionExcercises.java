@@ -2,7 +2,7 @@ package Recursion;
 
 public class EvenMoreRecursionExcercises {
     public static void main(String[] args) {
-//        System.out.println(length("kevin"));
+        System.out.println(length("kevin"));
         System.out.println(calculateSum(5));
         System.out.println(reverseString("write"));
     }
