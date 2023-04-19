@@ -3,15 +3,23 @@ import java.util.Scanner;
 public class test {
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        int[] testArray = {3, 4, 5};
 
-        int a = scan.nextInt();
-        int b = scan.nextInt();
+        for (int i = 0; i < testArray.length; i++) {
+            increment(testArray[i]);
+            System.out.print(testArray[i] + " ");
+        }
 
-        System.out.println(a);
-        System.out.println(b);
+        for (int element : testArray) {
+            increment(element);
+            System.out.print(element + " ");
+        }
 
 
+    }
+
+    public static void increment(int n) {
+        n++;
     }
 
 }
