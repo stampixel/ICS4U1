@@ -2,7 +2,7 @@ public class ImprovedBubbleSort {
     public static void main(String[] args) {
         int[] array = {2, 123, 125, 5, 12, 9, 4, 1};
 
-        array = new int[]{3, 6, 5, 4, 2};
+        array = new int[]{13, 5, 17, 15, 3, 7};
         int comparisonCounter = 0;
 
         boolean swapped = true;
@@ -23,7 +23,7 @@ public class ImprovedBubbleSort {
             printArray(array);
         }
 
-        printArray(array);
+//        printArray(array);
         System.out.println(comparisonCounter);
     }
 
