@@ -1,3 +1,5 @@
+package Sorting;
+
 public class NumberGuessingGame {
     public static void main(String[] args) {
         int randInt = (int) (Math.random() * 100);
