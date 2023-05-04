@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class TeamCanadaBinarySearch {
+public class TeamCanadaRecBinarySearch {
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(new File("TeamCanada.txt"));
         int count = 0;
@@ -28,7 +28,8 @@ public class TeamCanadaBinarySearch {
         }
 //
 //        for (int i = 0; i < count / 2; i += 2) {
-//            System.out.println(nameArray[i] + ": " + jerseyArray[i] + "\t" + nameArray[i + 1] + ": " + jerseyArray[i + 1]);
+//            System.out.println(nameArray[i] + ": " + jerseyArray[i] + "\t" + nameArray[i + 1] + ": " +
+//            jerseyArray[i + 1]);
 //        }
 
         insertionSort(jerseyArray, nameArray);
@@ -50,7 +51,7 @@ public class TeamCanadaBinarySearch {
         System.out.println("Enter a name to find their jersey number: ");
         String jerseyName = scan.nextLine();
 
-        int jerseyIndex = binarySearch(nameArray, jerseyName);
+        int jerseyIndex = recBinary(nameArray, jerseyName, 0, jerseyArray.length);
         if (jerseyIndex != -1) {
             System.out.println("The jersey number for that name is: " + jerseyArray[jerseyIndex]);
         } else {
@@ -75,21 +76,37 @@ public class TeamCanadaBinarySearch {
         }
     }
 
-    public static int binarySearch(String[] array, String name) {
-        int low = 0;
-        int high = array.length;
-        int mid = (low + high) / 2;
-
-        while (low <= high) { // <= not !-
-            mid = (low + high) / 2;
+    public static int recBinary(String[] array, String name, int low, int high) {
+        if (low > high) {
+            return -1;
+        } else {
+            int mid = (low + high) / 2;
             if (name.equals(array[mid])) {
                 return mid;
             } else if (name.compareTo(array[mid]) > 0) {
-                low = mid + 1;
+                return recBinary(array, name, mid + 1, high);
             } else {
-                high = mid - 1;
+                return recBinary(array, name, low, mid - 1);
             }
         }
-        return -1;
     }
+
+    /**
+     * binarySearch(arr, x, low, high)
+     * if low > high
+     * return False
+     * else
+     * mid = (low + high) / 2
+     * if x = arr[mid]
+     * return mid
+     * else if x > arr[mid]
+     * return binarySearch(arr, x, mid + 1, high)
+     * else
+     * return binarySearch(arr, x, low, mid – 1)
+     *
+     * @param array
+     * @param name
+     * @return
+     */
+
 }
