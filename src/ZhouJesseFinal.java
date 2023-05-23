@@ -25,6 +25,7 @@ public class ZhouJesseFinal {
 		int counter = 0;
 		int num = 0;
 		int diceNumKept = 0;
+		String lastDiceKept = "";
 		int[] diceRollUser = new int[5];
 		int[] diceRollAI = new int[5];
 		int[] userSelectionScore = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
@@ -155,6 +156,7 @@ public class ZhouJesseFinal {
 					}
 				}
 				if (num != 0 && num != 5) {
+					lastDiceKept = ""; // RESETTING SINCE THIS IS THE START OF A NEW TURN
 					for (int j = 0; j < num; j++) {
 						boolean validInput = false;
 						while (!validInput) {
@@ -163,8 +165,11 @@ public class ZhouJesseFinal {
 								diceNumKept = scan.nextInt();
 								if (diceNumKept > 5 || diceNumKept < 1) {
 									System.out.println("Invalid Input! Please Enter an Integer between 1-5.");
+								} else if (lastDiceKept.contains(Integer.toString(diceNumKept))) {
+									System.out.println("Not allowed to keep a dice you've already kept before.");
 								} else {
 									validInput = true;
+									lastDiceKept += diceNumKept; // ADDING THE CURRENT CHOICE ONTO THE STRING
 								}
 							} catch (Exception e) {
 								System.out.println("Invalid Input! Please Enter an Integer between 1-5.");
@@ -570,27 +575,58 @@ public class ZhouJesseFinal {
 			// Small String Calculations
 			// TEST THIS
 			boolean smallStraightFound = true;
-			//make copy of array diceRoll
-			int[] arr = new int[5];
-			for (int i = 0; i < arr.length; i++) {
-				arr[i] = diceRoll[i];
+
+
+			int[] arr = {1, 2, 7, 4, 5};
+			boolean[] dup = {false, false, false, false, false};
+
+			// SMALL STRIAGHT HERE STARTS HERE JE SEEEEEEEE
+			Arrays.sort(arr);
+			int dups = 0;
+			for (int i = 1; i < arr.length; i++) {
+				if (arr[i] == arr[i - 1]) {
+					dups++;
+					dup[i] = true; // Is a duplicate
+				}
 			}
-			// bubble sort copied array in ascending order
-			// Used for detecting small straights and large straights
-			for (int i = 0; i < arr.length - 1; i++) {
-				for (int j = 0; j < arr.length - i - 1; j++) {
-					if (arr[j] > arr[j + 1]) {
-						int temp = arr[j];
-						arr[j] = arr[j + 1];
-						arr[j + 1] = temp;
+			int duplicateCount = arr.length - dups;
+
+
+			int[] tempArr = new int[duplicateCount];
+
+			for (int i = 0; i < arr.length; i++) {
+				if (dup[i] == false) {
+					tempArr[i] = arr[i];
+				}
+			}
+
+
+			if (tempArr.length < 4) {
+				smallStraightFound = false;
+			} else {
+				// bubble sort copied array in ascending order
+				// Used for detecting small straights and large straights
+				for (int i = 0; i < tempArr.length - 1; i++) {
+					for (int j = 0; j < tempArr.length - i - 1; j++) {
+						if (tempArr[j] > tempArr[j + 1]) {
+							int temp = tempArr[j];
+							tempArr[j] = tempArr[j + 1];
+							tempArr[j + 1] = temp;
+						}
 					}
 				}
-			}
-			for (int i = 0; i < arr.length - 2; i++) {
-				if ((arr[i] + 1 != arr[i + 1] && arr[i] + 1 != arr[i + 2]) && !(arr[i] == 1 && arr[i + 1] == 3 && arr[i + 2] == 4)) {
+
+				for (int i = 0; i < tempArr.length-1; i++) {
+					if (tempArr[i]+1 == tempArr[i+1]) {
+						continue;
+					}
 					smallStraightFound = false;
+					break;
 				}
 			}
+			// END OF SMALL STRAIGHT
+
+
 			if (smallStraightFound && selectionScore[9] == -1) {
 				potentialScore[9] = 30;
 				checkValid[9] = true;
