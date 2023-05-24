@@ -23,12 +23,12 @@ public class Motorcycle extends Vehicle {
      */
 
     /**
-     * Calculates actual price of vehicle
+     * Monthly price of vehicle for 4 years
      *
      * @return
      */
     public double calculatePrice() {
-        return price / 4 / 12;
+        return getPrice() / 4 / 12;
     }
 
     /**
@@ -44,6 +44,6 @@ public class Motorcycle extends Vehicle {
      * @return
      */
     public String toString() {
-        return year + ", " + manufacturer + ", " + model;
+        return getYear() + ", " + getManufacturer() + ", " + getModel();
     }
 }

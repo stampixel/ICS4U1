@@ -28,7 +28,7 @@ public class ATV extends Vehicle {
      * @return
      */
     public double calculatePrice() {
-        return price * 0.1;
+        return getPrice() * 0.1;
     }
 
     /**
@@ -44,6 +44,6 @@ public class ATV extends Vehicle {
      * @return
      */
     public String toString() {
-        return year + ", " + manufacturer + ", " + model;
+        return getYear() + ", " + getManufacturer() + ", " + getModel();
     }
 }
