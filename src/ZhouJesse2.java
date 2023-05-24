@@ -35,7 +35,7 @@ public class ZhouJesse2 {
         int duplicateYahtzeeScore = 0;
         int duplicateYahtzeeScoreAI = 0;
 
-        int leaderboardLength = getFileLength()+2;
+        int leaderboardLength = getFileLength() + 2;
 
         int[] leaderboardScores = new int[leaderboardLength];
         String[] leaderboardUsernames = new String[leaderboardLength];
@@ -107,17 +107,16 @@ public class ZhouJesse2 {
                                         validCategorySelectedRC = true;
                                         // Adds calculated score to user's specified scoring category in the scoresheet array
                                         userSelectionScore[category - 1] = aiScores[category - 1];
-                                    }
-                                    else if(userSelectionScore[y] == -1 && category == y+1 && aiScores[y] == 0) {
+                                    } else if (userSelectionScore[y] == -1 && category == y + 1 && aiScores[y] == 0) {
                                         validCategorySelectedZC = true;
                                         // Sets the score in the user's specified scoring category in the scoresheet array to equal 0
                                         userSelectionScore[y] = 0;
                                     }
                                 }
-                                if(validCategorySelectedRC) {
+                                if (validCategorySelectedRC) {
                                     break;
                                 }
-                                if(validCategorySelectedZC) {
+                                if (validCategorySelectedZC) {
                                     break;
                                 }
 
@@ -131,12 +130,12 @@ public class ZhouJesse2 {
                     // MAKESHIFT SCORESHEET UNTIL KEVIN FINISHES
 
                     String dash = "━";
-                    String scoreSheetTitle = "┃       "+username + "'s Scoresheet    ┃";
-                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                    String scoreSheetTitle = "┃       " + username + "'s Scoresheet    ┃";
+                    for (int f = 0; f < scoreSheetTitle.length(); f++) {
                         System.out.print(dash);
                     }
-                    System.out.println("\n"+scoreSheetTitle);
-                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                    System.out.println("\n" + scoreSheetTitle);
+                    for (int f = 0; f < scoreSheetTitle.length(); f++) {
                         System.out.print(dash);
                     }
                     System.out.println();
@@ -203,7 +202,8 @@ public class ZhouJesse2 {
 
             } while (true);
             //Reset Array aiScores to prepare AI's Turn
-            aiScores = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};;
+            aiScores = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+            ;
             //Maybe change later so there are multiple names for AI that are stored in an array and randomly chosen each game instance?
             System.out.print("\n\n============ AI's Turn =============");
 
@@ -258,11 +258,11 @@ public class ZhouJesse2 {
                     // Print out AI's scoresheet
                     String dash = "━";
                     String scoreSheetTitle = "┃     AI's Scoresheet    ┃";
-                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                    for (int f = 0; f < scoreSheetTitle.length(); f++) {
                         System.out.print(dash);
                     }
-                    System.out.println("\n"+scoreSheetTitle);
-                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                    System.out.println("\n" + scoreSheetTitle);
+                    for (int f = 0; f < scoreSheetTitle.length(); f++) {
                         System.out.print(dash);
                     }
                     System.out.println();
@@ -276,7 +276,7 @@ public class ZhouJesse2 {
                             System.out.printf("%-17s --- %s%n", categoryNames[m], "N/A");
                         }
                     }
-                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                    for (int f = 0; f < scoreSheetTitle.length(); f++) {
                         System.out.print(dash);
                     }
                     break;
@@ -476,7 +476,7 @@ public class ZhouJesse2 {
         return sum;
     }
 
-    public static void calculateScore(int[] diceRoll, int[] potentialScore, int[] selectionScore,int duplicateYathzeeScore) {
+    public static void calculateScore(int[] diceRoll, int[] potentialScore, int[] selectionScore, int duplicateYathzeeScore) {
 
         int[] numCount = new int[]{0, 0, 0, 0, 0, 0};
         String[] upperNames = new String[]{"Ones", "Twos", "Threes", "Fours", "Fives", "Sixes"};
@@ -650,7 +650,15 @@ public class ZhouJesse2 {
             boolean[] dup = {false, false, false, false, false};
 
             // SMALL STRIAGHT HERE STARTS HERE JE SEEEEEEEE
-            bubbleSort(arr);
+            for (int i = 0; i < arr.length - 1; i++) {
+                for (int j = 0; j < arr.length - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        int temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
             int dups = 0;
             for (int i = 1; i < arr.length; i++) {
                 if (arr[i] == arr[i - 1]) {
@@ -677,7 +685,15 @@ public class ZhouJesse2 {
             } else {
                 // bubble sort copied array in ascending order
                 // Used for detecting small straights and large straights
-                bubbleSort(tempArr);
+                for (int i = 0; i < tempArr.length - 1; i++) {
+                    for (int j = 0; j < tempArr.length - i - 1; j++) {
+                        if (tempArr[j] > tempArr[j + 1]) {
+                            int temp = tempArr[j];
+                            tempArr[j] = tempArr[j + 1];
+                            tempArr[j + 1] = temp;
+                        }
+                    }
+                }
 
                 for (int i = 0; i < tempArr.length - 1; i++) {
                     if (tempArr[i] + 1 == tempArr[i + 1]) {
@@ -791,39 +807,28 @@ public class ZhouJesse2 {
                     System.out.println((i + 1) + ". " + upperNames[i] + " - Potential Score: " + potentialScore[i]);
                 }
             }
-            if(checkValid[6]) {
+            if (checkValid[6]) {
                 System.out.println("7. Three of A Kind - Potential Score: " + potentialScore[6]);
             }
-            if(checkValid[7]) {
+            if (checkValid[7]) {
                 System.out.println("8. Four of A Kind - Potential Score: " + potentialScore[7]);
             }
-            if(checkValid[8]) {
+            if (checkValid[8]) {
                 System.out.println("9. Full House - Potential Score: " + potentialScore[8]);
             }
-            if(checkValid[9]) {
+            if (checkValid[9]) {
                 System.out.println("10. Small Straight - Potential Score: " + potentialScore[9]);
             }
-            if(checkValid[10]) {
+            if (checkValid[10]) {
                 System.out.println("11. Large Straight - Potential Score: " + potentialScore[10]);
             }
-            if(checkValid[11]) {
+            if (checkValid[11]) {
                 System.out.println("12. Chance - Potential Score: " + potentialScore[11]);
             }
-            if(checkValid[12]) {
+            if (checkValid[12]) {
                 System.out.println("13. YAHTZEE - Potential Score: " + potentialScore[12]);
             }
         }
     }
 
-    public static void bubbleSort(int[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = 0; j < array.length - i - 1; j++) {
-                if (array[j] > array[j + 1]) {
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
-                }
-            }
-        }
-    }
 }
