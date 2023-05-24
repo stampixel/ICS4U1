@@ -9,7 +9,7 @@ public class Motorcycle extends Vehicle {
     /*
     Helper Methods
      */
-    public double monthlyPayment() {
+    public double calculatePrice() {
         return price / 4 / 12;
     }
 }

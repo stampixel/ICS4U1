@@ -9,7 +9,8 @@ public class ATV extends Vehicle {
     /*
     Helper Methods
      */
-    public double netPrice() {
+
+    public double calculatePrice() {
         return price * 0.1;
     }
 }

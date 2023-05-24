@@ -5,7 +5,7 @@ public class test4 {
         boolean smallStraightFound = true;
 
 
-        int[] arr = {1, 2, 7, 4, 5};
+        int[] arr = {1,2,4,3,4};
         boolean[] dup = {false, false, false, false, false};
 
         // SMALL STRIAGHT HERE STARTS HERE JE SEEEEEEEE

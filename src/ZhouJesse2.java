@@ -1,15 +1,14 @@
+
+
 import java.util.*;
 import java.io.*;
 
-public class ZhouJesseFinal {
+public class ZhouJesse2 {
 
     static Scanner sc = new Scanner(System.in);
 
     /* TO DO:
-    - FIX ADDING TO LEADERBOARD
-    - Implement try catch in integer scanner input requests such as asking how many dice to reroll to avoid run time errors through misinputs
     - Check over scoring categories to see if they work properly
-    - Format game console, add Scoresheet UI, and properly format "YahtzeeRules.txt"
     - Check to see if there is any redundancy in the code -> make more efficient
     - Check for logical/runtime errors
     - CHECK AI Interface/Decision-making
@@ -36,17 +35,24 @@ public class ZhouJesseFinal {
         int duplicateYahtzeeScore = 0;
         int duplicateYahtzeeScoreAI = 0;
 
-        int leaderboardLength = getFileLength() + 1;
+        int leaderboardLength = getFileLength()+2;
 
         int[] leaderboardScores = new int[leaderboardLength];
         String[] leaderboardUsernames = new String[leaderboardLength];
 
+        String[] categoryNames = new String[]{"Ones", "Twos", "Threes", "Fours", "Fives", "Sixes",
+                "Three of a Kind", "Four of a Kind", "Full House", "Small Straight", "Large Straight", "Chance", "Yahtzee"};
+
+        welcomeScreen();
         do {
-            System.out.println("P. Play\n"
+            System.out.print("========== Main Menu ==========");
+            System.out.println("\nP. Play\n"
                     + "R. Rules\n"
                     + "L. Leaderboard\n"
-                    + "Q. Quit");
+                    + "Q. Quit\n=================================\n");
+
             System.out.print("Please enter the first letter of your wanted action: ");
+
             answer = scan.nextLine();
             if (answer.equalsIgnoreCase("Q")) {
                 System.out.println("Thank you for playing Yahtzee!");
@@ -64,9 +70,9 @@ public class ZhouJesseFinal {
         // maybe read file to see if the name is already taken
         String username = scan.nextLine();
 
-        for (int t = 0; t < 3; t++) {
-            System.out.println("\nTURN " + t);
-            System.out.println(username + "'s Turn!");
+        for (int t = 1; t < 14; t++) {
+            System.out.println("\n============ TURN " + t + " =============");
+            System.out.print("\n============ " + username + "'s Turn =============");
             do {
                 aiScores = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
                 for (int j = 0; j < diceRollUser.length; j++) {
@@ -101,17 +107,17 @@ public class ZhouJesseFinal {
                                         validCategorySelectedRC = true;
                                         // Adds calculated score to user's specified scoring category in the scoresheet array
                                         userSelectionScore[category - 1] = aiScores[category - 1];
-                                    } else if (userSelectionScore[y] == -1 && category == y + 1 && aiScores[y] == 0) {
+                                    }
+                                    else if(userSelectionScore[y] == -1 && category == y+1 && aiScores[y] == 0) {
                                         validCategorySelectedZC = true;
                                         // Sets the score in the user's specified scoring category in the scoresheet array to equal 0
                                         userSelectionScore[y] = 0;
-                                        System.out.println("tr");
                                     }
                                 }
-                                if (validCategorySelectedRC) {
+                                if(validCategorySelectedRC) {
                                     break;
                                 }
-                                if (validCategorySelectedZC) {
+                                if(validCategorySelectedZC) {
                                     break;
                                 }
 
@@ -122,9 +128,24 @@ public class ZhouJesseFinal {
                         }
                     }
                     // CHECKPOINT TO TEST WHETHER Storing Values Works
-                    System.out.println("USER SCORESHEET");
+                    // MAKESHIFT SCORESHEET UNTIL KEVIN FINISHES
+
+                    String dash = "━";
+                    String scoreSheetTitle = "┃       "+username + "'s Scoresheet    ┃";
+                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                        System.out.print(dash);
+                    }
+                    System.out.println("\n"+scoreSheetTitle);
+                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                        System.out.print(dash);
+                    }
+                    System.out.println();
                     for (int m = 0; m < userSelectionScore.length; m++) {
-                        System.out.print(userSelectionScore[m] + ", ");
+                        if (userSelectionScore[m] != -1) {
+                            System.out.printf("%-18s --- %d%n", categoryNames[m], userSelectionScore[m]);
+                        } else {
+                            System.out.printf("%-18s --- %s%n", categoryNames[m], "N/A");
+                        }
                     }
                     // System.out.println("checked"); Used to check whether valid input check has been run correctly
                     break;
@@ -182,10 +203,9 @@ public class ZhouJesseFinal {
 
             } while (true);
             //Reset Array aiScores to prepare AI's Turn
-            aiScores = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-            ;
+            aiScores = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};;
             //Maybe change later so there are multiple names for AI that are stored in an array and randomly chosen each game instance?
-            System.out.print("\n\nAI's Turn");
+            System.out.print("\n\n============ AI's Turn =============");
 
             int counterAI = 0;
             do {
@@ -200,7 +220,7 @@ public class ZhouJesseFinal {
 
                 if (counterAI == 2) {
                     System.out.println("\nCalculating Potential Scores...\nCalculation Complete!");
-                    String[] categoryNames = new String[]{"Ones", "Twos", "Threes", "Fours", "Fives", "Sixes",
+                    String[] categoryNamesDuplicate = new String[]{"Ones", "Twos", "Threes", "Fours", "Fives", "Sixes",
                             "Three of a Kind", "Four of a Kind", "Full House", "Small Straight", "Large Straight", "Chance", "Yahtzee"};
                     calculateScore(diceRollAI, aiScores, aiSelectionScore, duplicateYahtzeeScoreAI);
                     //CALCULATING HIGHEST SCORING CATEGORY FOR THE CURRENT AI DICE
@@ -223,22 +243,41 @@ public class ZhouJesseFinal {
                         for (int j = 0; j < aiScores.length - i - 1; j++) {
                             if (aiScores[j] < aiScores[j + 1]) {
                                 int temp = aiScores[j];
-                                String nameTemp = categoryNames[j];
+                                String nameTemp = categoryNamesDuplicate[j];
                                 aiScores[j] = aiScores[j + 1];
-                                categoryNames[j] = categoryNames[j + 1];
+                                categoryNamesDuplicate[j] = categoryNamesDuplicate[j + 1];
                                 aiScores[j + 1] = temp;
-                                categoryNames[j + 1] = nameTemp;
+                                categoryNamesDuplicate[j + 1] = nameTemp;
                             }
                         }
                     }
 
-                    System.out.println("\n> The AI has chosen " + categoryNames[0] + " and scored " + aiScores[0] + " points!");
+                    System.out.println("\n> The AI has chosen " + categoryNamesDuplicate[0] + " and scored " + aiScores[0] + " points!");
 
                     aiSelectionScore[highestValueIndex] = highestValue;
-                    // Print out ScoreSheet
-                    System.out.println("AI SCORESHEET");
-                    for (int k = 0; k < aiSelectionScore.length; k++) {
-                        System.out.print(aiSelectionScore[k] + ",");
+                    // Print out AI's scoresheet
+                    String dash = "━";
+                    String scoreSheetTitle = "┃     AI's Scoresheet    ┃";
+                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                        System.out.print(dash);
+                    }
+                    System.out.println("\n"+scoreSheetTitle);
+                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                        System.out.print(dash);
+                    }
+                    System.out.println();
+                    for (int m = 0; m < aiSelectionScore.length; m++) {
+                        if (aiSelectionScore[m] != -1) {
+                            // aligns text and stuff
+                            System.out.printf("%-17s --- %d%n", categoryNames[m], aiSelectionScore[m]);
+
+
+                        } else {
+                            System.out.printf("%-17s --- %s%n", categoryNames[m], "N/A");
+                        }
+                    }
+                    for(int f = 0; f < scoreSheetTitle.length(); f++) {
+                        System.out.print(dash);
                     }
                     break;
                 }
@@ -276,6 +315,8 @@ public class ZhouJesseFinal {
         userTotalScore += duplicateYahtzeeScore;
         aiTotalScore += duplicateYahtzeeScoreAI;
 
+        System.out.println("Your score versus the opponent was " + userTotalScore + " vs. " + aiTotalScore);
+
         if (userTotalScore > aiTotalScore) {
             System.out.println("\nCongratulations " + username + "! You have won!");
         } else if (userTotalScore == aiTotalScore) {
@@ -283,16 +324,13 @@ public class ZhouJesseFinal {
         } else {
             System.out.println("\nYou Lost! Try again next time!");
         }
-        System.out.println("Your score versus the opponent was " + userTotalScore + " vs. " + aiTotalScore);
 
-        getScoreSheet(userSelectionScore, aiSelectionScore);
 
         addToLeaderboard(leaderboardScores, leaderboardUsernames, userTotalScore, username);
 
     }
 
     public static int getFileLength() throws Exception {
-
         File file = new File("Leaderboard.txt");
         Scanner fileScan = new Scanner(file);
         int counter = 0;
@@ -305,23 +343,30 @@ public class ZhouJesseFinal {
 
     public static void addToLeaderboard(int[] leaderboardScores, String[] leaderboardUsernames, int userTotalScore, String username) throws Exception {
         File file = new File("Leaderboard.txt");
-        Scanner fileScan = new Scanner(file);
         PrintWriter pw = new PrintWriter(new FileWriter(file, true), true);
-        for (int i = 0; i < 5; i++) {
-            String currentLine = fileScan.nextLine();
-            int locateDash1 = currentLine.indexOf("-");
-            int locateDash2 = currentLine.lastIndexOf("-");
-            String getScoreLocation = currentLine.substring(locateDash1 + 1, locateDash2);
-            leaderboardScores[i] = Integer.parseInt(getScoreLocation);
-            leaderboardUsernames[i] = currentLine.substring(0, locateDash1);
-            System.out.println(getScoreLocation);
-        }
-        int fileLength = getFileLength();
 
+        try (Scanner fileScan = new Scanner(file)) {
+            for (int i = 0; i < 5; i++) {
+                if (fileScan.hasNextLine()) {
+                    String currentLine = fileScan.nextLine();
+                    int locateDash1 = currentLine.indexOf("-");
+                    int locateDash2 = currentLine.lastIndexOf("-");
+                    String getScoreLocation = currentLine.substring(locateDash1 + 1, locateDash2);
+                    leaderboardScores[i] = Integer.parseInt(getScoreLocation);
+                    leaderboardUsernames[i] = currentLine.substring(0, locateDash1);
+                } else {
+                    // Handle the case where there are fewer than 5 lines in the file
+                    leaderboardScores[i] = 0;
+                    leaderboardUsernames[i] = "";
+                }
+            }
+        }
+
+        int fileLength = getFileLength();
         leaderboardScores[fileLength] = userTotalScore;
         leaderboardUsernames[fileLength] = username;
 
-        // sorts all scores in the leaderboard file in descending order
+        // Sorts all scores in the leaderboard file in descending order
         for (int i = 0; i < leaderboardScores.length - 1; i++) {
             for (int j = 0; j < leaderboardScores.length - i - 1; j++) {
                 if (leaderboardScores[j] < leaderboardScores[j + 1]) {
@@ -335,28 +380,36 @@ public class ZhouJesseFinal {
             }
         }
 
-        // prints all scores in order to the leaderboard file
+        // Clears leaderboard file
+        pw.close();
+        pw = new PrintWriter(new FileWriter(file));
+
+        // Prints all scores in order to the leaderboard file
         for (int i = 0; i < leaderboardScores.length; i++) {
-            pw.println(leaderboardUsernames[i] + "-" + leaderboardScores[i] + "-");
-        }
-
-        // reset Scanner
-        fileScan = new Scanner(file);
-
-        int checkRanking = 0;
-        int ranking = 0;
-        while (true) {
-            String currentLine = fileScan.nextLine();
-            int locateDash1 = currentLine.indexOf("-");
-            checkRanking++;
-            if (currentLine.substring(0, locateDash1).equals(username)) {
-                ranking = checkRanking;
-                break;
+            if (leaderboardUsernames[i] != null && leaderboardScores[i] != 0) {
+                pw.println(leaderboardUsernames[i] + "-" + leaderboardScores[i] + "-");
             }
         }
-        if (ranking >= 5) {
-            System.out.println("Congratulations! You ranked as #" + ranking + " in all-time scores!");
+
+        // Reset Scanner
+        try (Scanner newFileScan = new Scanner(file)) {
+            int checkRanking = 0;
+            int ranking = 0;
+            while (newFileScan.hasNextLine()) {
+                String currentLine = newFileScan.nextLine();
+                int locateDash1 = currentLine.indexOf("-");
+                checkRanking++;
+                if (currentLine.substring(0, locateDash1).equals(username)) {
+                    ranking = checkRanking;
+                    break;
+                }
+            }
+
+            if (ranking >= 5) {
+                System.out.println("Congratulations! You ranked as #" + ranking + " in all-time scores!");
+            }
         }
+
         pw.close();
     }
 
@@ -372,19 +425,35 @@ public class ZhouJesseFinal {
         System.out.println();
         System.out.println(" All-Time Yahtzee High Scores ");
         System.out.println("------------------------------");
-        for (int i = 0; i < 5; i++) {
-
+        int lineCount = 0;
+        while (fileScan.hasNextLine() && lineCount < 5) {
             String currentLine = fileScan.nextLine();
             int locateDash1 = currentLine.indexOf("-");
             int locateDash2 = currentLine.lastIndexOf("-");
             String getScoreLocation = currentLine.substring(locateDash1 + 1, locateDash2);
-            leaderboardScores[i] = Integer.parseInt(getScoreLocation);
-            leaderboardUsernames[i] = currentLine.substring(0, locateDash1);
-
-            System.out.println((i + 1) + ". " + leaderboardUsernames[i] + " - " + leaderboardScores[i]);
+            leaderboardScores[lineCount] = Integer.parseInt(getScoreLocation);
+            leaderboardUsernames[lineCount] = currentLine.substring(0, locateDash1);
+            System.out.println((lineCount + 1) + ". " + leaderboardUsernames[lineCount] + " - " + leaderboardScores[lineCount]);
+            lineCount++;
         }
         System.out.println();
         fileScan.close();
+    }
+
+    public static void welcomeScreen() {
+        System.out.println("Welcome to Jesse's magnificent: ");
+        System.out.println("                                                                                                                      \n" +
+                "`8.`8888.      ,8'    .8.          8 8888        8 8888888 8888888888 8888888888',8888' 8 8888888888   8 8888888888   \n" +
+                " `8.`8888.    ,8'    .888.         8 8888        8       8 8888              ,8',8888'  8 8888         8 8888         \n" +
+                "  `8.`8888.  ,8'    :88888.        8 8888        8       8 8888             ,8',8888'   8 8888         8 8888         \n" +
+                "   `8.`8888.,8'    . `88888.       8 8888        8       8 8888            ,8',8888'    8 8888         8 8888         \n" +
+                "    `8.`88888'    .8. `88888.      8 8888        8       8 8888           ,8',8888'     8 888888888888 8 888888888888 \n" +
+                "     `8. 8888    .8`8. `88888.     8 8888        8       8 8888          ,8',8888'      8 8888         8 8888         \n" +
+                "      `8 8888   .8' `8. `88888.    8 8888888888888       8 8888         ,8',8888'       8 8888         8 8888         \n" +
+                "       8 8888  .8'   `8. `88888.   8 8888        8       8 8888        ,8',8888'        8 8888         8 8888         \n" +
+                "       8 8888 .888888888. `88888.  8 8888        8       8 8888       ,8',8888'         8 8888         8 8888         \n" +
+                "       8 8888.8'       `8. `88888. 8 8888        8       8 8888      ,8',8888888888888  8 888888888888 8 888888888888\n");
+
     }
 
     public static void rules() throws Exception {
@@ -407,11 +476,7 @@ public class ZhouJesseFinal {
         return sum;
     }
 
-    public static void calculateScore(int[] diceRoll, int[] potentialScore, int[] selectionScore, int duplicateYathzeeScore) {
-
-        // TESTING DICE SCORING CATEGORY HERE(INPUT ANY VALUES THEN RUN TO CHECK
-        // diceRoll = new int[] {5,5,5,5,5};
-
+    public static void calculateScore(int[] diceRoll, int[] potentialScore, int[] selectionScore,int duplicateYathzeeScore) {
 
         int[] numCount = new int[]{0, 0, 0, 0, 0, 0};
         String[] upperNames = new String[]{"Ones", "Twos", "Threes", "Fours", "Fives", "Sixes"};
@@ -598,9 +663,11 @@ public class ZhouJesseFinal {
 
             int[] tempArr = new int[duplicateCount];
 
+            int count = 0;
             for (int i = 0; i < arr.length; i++) {
                 if (!dup[i]) {
-                    tempArr[i] = arr[i];
+                    tempArr[count] = arr[i];
+                    count++;
                 }
             }
 
@@ -620,8 +687,6 @@ public class ZhouJesseFinal {
                     break;
                 }
             }
-            // END OF SMALL STRAIGHT
-
 
             if (smallStraightFound && selectionScore[9] == -1) {
                 potentialScore[9] = 30;
@@ -726,74 +791,28 @@ public class ZhouJesseFinal {
                     System.out.println((i + 1) + ". " + upperNames[i] + " - Potential Score: " + potentialScore[i]);
                 }
             }
-            if (checkValid[6]) {
+            if(checkValid[6]) {
                 System.out.println("7. Three of A Kind - Potential Score: " + potentialScore[6]);
             }
-            if (checkValid[7]) {
+            if(checkValid[7]) {
                 System.out.println("8. Four of A Kind - Potential Score: " + potentialScore[7]);
             }
-            if (checkValid[8]) {
+            if(checkValid[8]) {
                 System.out.println("9. Full House - Potential Score: " + potentialScore[8]);
             }
-            if (checkValid[9]) {
+            if(checkValid[9]) {
                 System.out.println("10. Small Straight - Potential Score: " + potentialScore[9]);
             }
-            if (checkValid[10]) {
+            if(checkValid[10]) {
                 System.out.println("11. Large Straight - Potential Score: " + potentialScore[10]);
             }
-            if (checkValid[11]) {
+            if(checkValid[11]) {
                 System.out.println("12. Chance - Potential Score: " + potentialScore[11]);
             }
-            if (checkValid[12]) {
+            if(checkValid[12]) {
                 System.out.println("13. YAHTZEE - Potential Score: " + potentialScore[12]);
             }
         }
-    }
-
-    public static void getScoreSheet(int[] userSelectionScore, int[] aiSelectionScore) {
-        String[] userScoreTemp = new String[13];
-        String[] aiScoreTemp = new String[13];
-        for (int i = 0; i < userSelectionScore.length; i++) {
-            if (userSelectionScore[i] != -1) {
-                userScoreTemp[i] = String.valueOf(userSelectionScore[i]);
-            } else {
-                userScoreTemp[i] = "-";
-            }
-        }
-
-        for (int i = 0; i < aiSelectionScore.length; i++) {
-            if (aiSelectionScore[i] != -1) {
-                aiScoreTemp[i] = String.valueOf(aiSelectionScore[i]);
-            } else {
-                aiScoreTemp[i] = "-";
-            }
-        }
-
-
-        System.out.println(
-                "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n"
-                        + "┃          Scoresheet       ┃\n"
-                        + "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n"
-                        + "┃ UPPER SECTION ┃ YOU ┃ AI Opponent┃\n"
-                        + "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n"
-                        + "┃Ones           ┃" + userScoreTemp[0] + "┃ " + aiScoreTemp[0] + "┃\n"
-                        + "┃Twos        ┃  " + userScoreTemp[1] + "  ┃    " + aiScoreTemp[1] + "┃\n"
-                        + "┃Threes        ┃  " + userScoreTemp[2] + "  ┃    " + aiScoreTemp[2] + "┃\n"
-                        + "┃Fours        ┃  " + userScoreTemp[3] + "  ┃    " + aiScoreTemp[3] + "┃\n"
-                        + "┃Fives        ┃  " + userScoreTemp[4] + "  ┃    " + aiScoreTemp[4] + "┃\n"
-                        + "┃Sixes        ┃  " + userScoreTemp[5] + "  ┃    " + aiScoreTemp[5] + "┃\n"
-                        + "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n"
-                        + "┃ LOWER SECTION ┃ YOU ┃ AI Opponent┃\n"
-                        + "┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n"
-                        + "┃Three of a Kind┃ " + userScoreTemp[6] + "  ┃    " + aiScoreTemp[6] + "     ┃\n"
-                        + "┃Four of a Kind ┃ " + userScoreTemp[7] + "  ┃    " + aiScoreTemp[7] + "     ┃\n"
-                        + "┃Full House     ┃ " + userScoreTemp[8] + "  ┃    " + aiScoreTemp[8] + "     ┃\n"
-                        + "┃Small Straight ┃ " + userScoreTemp[9] + "  ┃    " + aiScoreTemp[9] + "     ┃\n"
-                        + "┃Large Straight ┃ " + userScoreTemp[10] + "  ┃    " + aiScoreTemp[10] + "     ┃\n"
-                        + "┃Chance         ┃ " + userScoreTemp[11] + "  ┃    " + aiScoreTemp[11] + "     ┃\n"
-                        + "┃YAHTZEE        ┃ " + userScoreTemp[12] + "  ┃    " + aiScoreTemp[12] + "     ┃\n"
-                        + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n"
-        );
     }
 
     public static void bubbleSort(int[] array) {
@@ -808,4 +827,3 @@ public class ZhouJesseFinal {
         }
     }
 }
-

@@ -55,7 +55,5 @@ public abstract class Vehicle {
     /*
     Helper Methods
      */
-    public double calculatePrice() {
-        return 0.0;
-    }
+    public abstract double calculatePrice();
 }
