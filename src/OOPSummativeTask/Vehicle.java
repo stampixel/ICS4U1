@@ -6,10 +6,10 @@ package OOPSummativeTask;
  */
 
 public abstract class Vehicle {
-    int year;
-    String manufacturer;
-    String model;
-    double price;
+    private int year;
+    private String manufacturer;
+    private String model;
+    private double price;
 
     /**
      * Constructor, passing the user inputs into the class itself
