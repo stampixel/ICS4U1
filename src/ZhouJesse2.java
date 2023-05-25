@@ -344,8 +344,8 @@ public class ZhouJesse2 {
     public static void addToLeaderboard(int[] leaderboardScores, String[] leaderboardUsernames, int userTotalScore, String username) throws Exception {
         File file = new File("Leaderboard.txt");
         PrintWriter pw = new PrintWriter(new FileWriter(file, true), true);
-
-        try (Scanner fileScan = new Scanner(file)) {
+        Scanner fileScan = new Scanner(file);
+        try  {
             for (int i = 0; i < 5; i++) {
                 if (fileScan.hasNextLine()) {
                     String currentLine = fileScan.nextLine();
@@ -360,6 +360,8 @@ public class ZhouJesse2 {
                     leaderboardUsernames[i] = "";
                 }
             }
+        } catch (Exception e) {
+            System.out.println("Creating leaderboard...");
         }
 
         int fileLength = getFileLength();
