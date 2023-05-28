@@ -14,6 +14,10 @@ public class ExtendFrame extends JFrame {
 //        ImageIcon image = new ImageIcon("Path"); // Create an image icon
 //        frame.setIconImage(image.getImage()); // Change icon of frame
         this.getContentPane().setBackground(Color.magenta); // Change color of background
-        this.getContentPane().setBackground(new Color(21,100,244)); // RGB example, can also use hexadecimals
+        this.getContentPane().setBackground(new Color(21, 100, 244)); // RGB example, can also use hexadecimals
+    }
+
+    public static void main(String[] args) {
+        new ExtendFrame();
     }
 }

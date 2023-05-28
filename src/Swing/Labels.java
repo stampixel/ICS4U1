@@ -27,7 +27,6 @@ public class Labels {
 //        label.setBounds(100, 100, 250, 250);
 
 
-
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        frame.setSize(500, 500);
