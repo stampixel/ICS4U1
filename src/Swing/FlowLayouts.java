@@ -6,7 +6,7 @@ import java.awt.*;
 public class FlowLayouts {
     /**
      * Layout Manager: Defines the natural layout for components within a container
-     * <p>
+     *
      * FlowLayout: Places components in a row, sized at their preferred size.
      * If the horizontal space in teh container is too small, the FlowLayout class uses the next available row.
      *

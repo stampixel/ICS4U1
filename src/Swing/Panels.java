@@ -6,6 +6,7 @@ import java.awt.*;
 public class Panels {
     /**
      * JPanel: a GUI component that functions as a container to hold other components
+     *
      * @param args
      */
     public static void main(String[] args) {

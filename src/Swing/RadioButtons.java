@@ -62,6 +62,5 @@ public class RadioButtons extends JFrame implements ActionListener {
         } else {
             System.out.println("You ordered a Hot Dog");
         }
-
     }
 }

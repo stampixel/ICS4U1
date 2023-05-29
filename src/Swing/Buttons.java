@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class Buttons extends JFrame implements ActionListener {
     JButton button;
     JLabel label;
+
     Buttons() {
         ImageIcon icon = new ImageIcon("catsmirk.png");
         ImageIcon chess = new ImageIcon("chess.jpg");
@@ -54,6 +55,7 @@ public class Buttons extends JFrame implements ActionListener {
 
     /**
      * Lists for events
+     *
      * @param e the event to be processed
      */
     @Override
@@ -62,6 +64,5 @@ public class Buttons extends JFrame implements ActionListener {
             System.out.println("Hello, World!");
             label.setVisible(true);
         }
-
     }
 }

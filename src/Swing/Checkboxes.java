@@ -41,7 +41,7 @@ public class Checkboxes extends JFrame implements ActionListener {
      * @param args
      */
     public static void main(String[] args) {
-
+        new Checkboxes();
     }
 
     @Override

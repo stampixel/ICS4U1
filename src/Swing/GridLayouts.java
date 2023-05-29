@@ -25,7 +25,7 @@ public class GridLayouts {
         frame.add(new JButton("6"));
         frame.add(new JButton("7"));
         frame.add(new JButton("8"));
-//        frame.add(new JButton("9"));
+        frame.add(new JButton("9"));
 
         frame.setVisible(true);
     }
